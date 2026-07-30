@@ -1,0 +1,55 @@
+<!--
+  LAYOUT 2 — hero-offset-left-overlap
+  ============================================
+  Title sits in the left 40% of the canvas; hero image fills the right 60%
+  but overlaps the title's right edge (z-layered so the title is in FRONT of
+  the image but partially obscured by it).
+
+  Role: opening with intimacy — subject and title share space.
+  Use with: asymmetric-L, diagonal-split grids; fashion-bold, dense-editorial stances.
+-->
+
+<div class="slide" data-mode="linear" id="slide-N">
+  <div class="kicker">[REPLACE — small caps subtitle]</div>
+</div>
+
+<div id="title">[REPLACE — title text]</div>
+<div id="hero" style="background-image: url('[REPLACE]');"></div>
+
+<style>
+.kicker {
+  position: absolute;
+  top: 120px; left: 80px;
+  font-size: 14px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent);
+}
+
+#title {
+  position: absolute;
+  top: 200px; left: 80px;
+  width: 720px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 144px;
+  letter-spacing: -3px;
+  line-height: 0.95;
+  color: var(--text);
+  z-index: 6;
+  /* Title peeks out from BEHIND the image on its right side */
+}
+
+#hero {
+  position: absolute;
+  top: 0; right: 0;
+  width: 720px; height: 720px;
+  background-size: cover;
+  background-position: center;
+  z-index: 5;
+  /* Lower z than #title; #title's right edge will be partially hidden */
+}
+</style>
+
+<!--
+  MORPH PLAN: hero scales to 0.8 and shifts right; title shrinks to top-left corner.
+  MICRO-INTERACTION: subtle parallax on hero (mouse-driven or auto-drift 2px y/x yoyo).
+-->

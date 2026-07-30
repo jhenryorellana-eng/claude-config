@@ -1,0 +1,91 @@
+<!--
+  LAYOUT 14 — stats-marquee-horizontal
+  ============================================
+  Stats arranged in a single horizontal row, marquee-style. Each one sits
+  on a "ticket" or "card" form. Good for 4-6 parallel data points.
+
+  Role: stats moment with breadth (many points) rather than depth (one big point).
+  Use with: rule-of-thirds, magazine-spread; dense-editorial, technical-blueprint stances.
+-->
+
+<div class="slide" data-mode="linear" id="slide-N">
+  <h2 class="mq-title">[REPLACE]</h2>
+
+  <div class="marquee">
+    <div class="mq-stat">
+      <div class="mq-num">[REPLACE]</div>
+      <div class="mq-label">[REPLACE]</div>
+    </div>
+    <div class="mq-stat">
+      <div class="mq-num">[REPLACE]</div>
+      <div class="mq-label">[REPLACE]</div>
+    </div>
+    <div class="mq-stat">
+      <div class="mq-num">[REPLACE]</div>
+      <div class="mq-label">[REPLACE]</div>
+    </div>
+    <div class="mq-stat">
+      <div class="mq-num">[REPLACE]</div>
+      <div class="mq-label">[REPLACE]</div>
+    </div>
+    <div class="mq-stat">
+      <div class="mq-num">[REPLACE]</div>
+      <div class="mq-label">[REPLACE]</div>
+    </div>
+  </div>
+</div>
+
+<style>
+.mq-title {
+  position: absolute;
+  top: 80px; left: 80px;
+  font-family: var(--display);
+  font-size: 48px; font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.marquee {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 80px;
+  gap: 24px;
+}
+
+.mq-stat {
+  flex: 1;
+  padding: 32px 16px 28px;
+  border-top: 1px solid var(--muted);
+  text-align: left;
+  position: relative;
+}
+
+.mq-stat::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0;
+  width: 24px; height: 1px;
+  background: var(--accent);
+}
+
+.mq-num {
+  font-family: var(--display);
+  font-size: 56px; font-weight: 700;
+  line-height: 1.0; letter-spacing: -1px;
+  color: var(--text);
+  font-feature-settings: "tnum";
+}
+.mq-label {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+}
+</style>
+
+<!--
+  MICRO-INTERACTION: top accent line draws in left-to-right on slide entry (stagger).
+  MORPH PLAN: numbers count up; lines wipe in sequentially.
+-->

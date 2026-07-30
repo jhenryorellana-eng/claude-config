@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>París — Torre Eiffel</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+:root {
+  --bg: #1a2332;
+  --bg-2: #141d2a;
+  --accent: #ef4a3c;
+  --accent-soft: #ef4a3c;
+  --text: #f5f5f0;
+  --muted: #7c8794;
+  --display: "Fraunces", serif;
+  --body: "Manrope", sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100%; height: 100%;
+  background: #050810;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--body); overflow: hidden;
+}
+#scale-wrap { width: 1280px; height: 720px; transform-origin: center center; }
+#slide {
+  width: 1280px; height: 720px;
+  background: radial-gradient(ellipse at 30% 40%, var(--bg) 0%, var(--bg-2) 100%);
+  color: var(--text);
+  position: relative; overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,.6);
+  cursor: pointer; user-select: none;
+}
+
+/* ==== Brand mark ==== */
+.brand {
+  position: absolute; top: 32px; left: 40px;
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text); z-index: 25;
+}
+.brand-bar { width: 36px; height: 2px; background: var(--text); border-radius: 1px; opacity: .85; }
+
+/* ==== Nav dots ==== */
+.nav-dots {
+  position: absolute; left: 44px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 18px; z-index: 25;
+}
+.dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--muted);
+  transition: all .5s cubic-bezier(.4,0,.2,1);
+}
+.dot.active { width: 11px; height: 11px; background: var(--text); }
+
+/* ==== Pin tag ==== */
+.pin-tag {
+  position: absolute; bottom: 40px; left: 40px;
+  display: flex; align-items: center; gap: 8px;
+  color: var(--accent); font-size: 14px; font-weight: 500;
+  z-index: 25; letter-spacing: .3px;
+}
+
+/* ==== Flag bars (diagonal decoration) ==== */
+.flag-bars {
+  position: absolute; right: -100px; top: -250px; bottom: -250px;
+  width: 500px; pointer-events: none; z-index: 1; overflow: visible;
+}
+.bar {
+  position: absolute; width: 85px; height: 1700px;
+  transform: rotate(24deg); transform-origin: top center;
+}
+.bar-light { background: linear-gradient(180deg, rgba(245,245,240,.98), rgba(245,245,240,.85)); right: 200px; }
+.bar-accent { background: linear-gradient(180deg, var(--accent), #d63a2e); right: 60px; }
+
+/* ==== Title ==== */
+#title {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--display); font-weight: 700;
+  font-size: 220px;
+  letter-spacing: -8px; line-height: 1;
+  color: var(--text); z-index: 8;
+  white-space: nowrap;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+}
+#title .accent-dot {
+  display: inline-block;
+  color: var(--accent);
+  text-shadow: 0 0 24px rgba(239,74,60,.4);
+}
+#subtitle {
+  position: absolute;
+  top: calc(50% + 140px); left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px; font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 8px; text-transform: uppercase;
+  z-index: 8;
+}
+
+/* ==== Hero image (Eiffel Tower) ==== */
+#hero {
+  position: absolute;
+  width: 720px; height: 820px;
+  top: -50px; left: 50%;
+  transform: translateX(-50%) translateY(820px);
+  background-image: url('https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=1200&q=80');
+  background-size: cover;
+  background-position: center 30%;
+  z-index: 4;
+  clip-path: polygon(18% 0, 100% 0, 82% 100%, 0% 100%);
+  filter: drop-shadow(0 30px 50px rgba(0,0,0,.5)) brightness(1.05) contrast(1.1);
+}
+
+/* ==== Orbital ring ==== */
+#ring-wrap {
+  position: absolute; top: 50%; left: 50%;
+  width: 620px; height: 620px;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0; z-index: 3; pointer-events: none;
+}
+#ring-svg {
+  width: 100%; height: 100%;
+  overflow: visible;
+}
+.ring-circle { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+
+.plus {
+  position: absolute;
+  width: 26px; height: 26px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text); font-size: 18px; font-weight: 300;
+  box-shadow: 0 4px 12px rgba(239,74,60,.5);
+}
+.plus::before {
+  content: ""; width: 10px; height: 1.5px; background: var(--text); position: absolute;
+}
+.plus::after {
+  content: ""; width: 1.5px; height: 10px; background: var(--text); position: absolute;
+}
+
+/* ==== Stats ==== */
+.stat {
+  position: absolute;
+  color: var(--text); z-index: 9;
+  opacity: 0;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat .num {
+  font-family: var(--display); font-weight: 700;
+  font-size: 64px; line-height: .95;
+  letter-spacing: -2px;
+}
+.stat .num .unit { font-size: 36px; margin-left: 4px; color: var(--muted); font-weight: 500; }
+.stat .label {
+  font-size: 13px; color: var(--muted);
+  letter-spacing: 1.8px; text-transform: uppercase;
+  font-family: var(--body); font-weight: 500;
+}
+
+/* ==== Description text (slide 2) ==== */
+#detail-box {
+  position: absolute;
+  top: 230px; left: 90px;
+  width: 460px;
+  opacity: 0;
+  z-index: 9;
+}
+#detail-title {
+  font-family: var(--display); font-weight: 700;
+  font-size: 72px; line-height: 1.02;
+  letter-spacing: -2px;
+  margin-bottom: 14px;
+}
+#detail-tag {
+  font-family: var(--body); font-weight: 400;
+  font-size: 22px; color: var(--accent);
+  letter-spacing: .3px;
+  margin-bottom: 28px;
+}
+#detail-text {
+  font-size: 16px; line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 36px;
+  max-width: 400px;
+}
+
+/* ==== CTA ==== */
+.cta-row { display: flex; align-items: center; gap: 24px; }
+.btn {
+  display: inline-flex; align-items: center;
+  padding: 13px 32px;
+  background: var(--accent); color: var(--text);
+  border: none; border-radius: 999px;
+  font-family: var(--body); font-weight: 600; font-size: 15px;
+  cursor: pointer; transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow: 0 8px 24px rgba(239,74,60,.3);
+}
+.btn:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 12px 32px rgba(239,74,60,.4); }
+.cta-pin {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--accent); font-size: 14px; font-weight: 500;
+}
+
+/* ==== Thumbnails (slide 2) ==== */
+#thumbs {
+  position: absolute;
+  top: 580px; left: 90px;
+  display: flex; gap: 14px;
+  z-index: 9;
+  opacity: 0;
+}
+.thumb {
+  width: 88px; height: 88px;
+  border-radius: 14px;
+  background-size: cover; background-position: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,.4);
+}
+
+/* ==== Media device (slide 4) ==== */
+#device {
+  position: absolute;
+  top: 100px; right: -600px;
+  width: 540px; height: 380px;
+  background: #0a0a0a;
+  border-radius: 24px;
+  padding: 12px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.5);
+  z-index: 10;
+  overflow: hidden;
+}
+#device-screen {
+  width: 100%; height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1431274172761-fca41d930114?w=1200&q=80');
+  background-size: cover; background-position: center;
+  border-radius: 14px;
+  position: relative;
+}
+#device-screen::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.4) 100%);
+  border-radius: 14px;
+}
+#device-caption {
+  position: absolute; bottom: 22px; left: 22px;
+  color: var(--text); z-index: 2;
+  font-family: var(--display); font-style: italic;
+  font-size: 18px; font-weight: 500;
+  max-width: 70%;
+  line-height: 1.4;
+  text-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+
+/* ==== Closing slide elements ==== */
+#closing-quote {
+  position: absolute;
+  bottom: -200px; left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 11;
+  opacity: 0;
+}
+#closing-quote .q-mark {
+  font-family: var(--display); font-size: 120px;
+  line-height: .5; color: var(--accent);
+  display: block;
+}
+#closing-quote .q-text {
+  font-family: var(--display); font-style: italic;
+  font-size: 32px; font-weight: 600;
+  max-width: 700px; margin: 16px auto 8px;
+  line-height: 1.3;
+}
+#closing-quote .q-author {
+  font-size: 13px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* ==== Progress hint ==== */
+.hint {
+  position: absolute; bottom: 22px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase;
+  opacity: .4; pointer-events: none; z-index: 25;
+}
+.hint::before {
+  content: "→"; margin-right: 8px; opacity: .6;
+}
+
+/* ==== Vignette ==== */
+.vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.35) 100%);
+  pointer-events: none; z-index: 15;
+}
+</style>
+</head>
+<body>
+
+<div id="scale-wrap">
+<div id="slide">
+
+  <!-- Persistent chrome -->
+  <div class="brand">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="brand-bar"></div>
+  </div>
+
+  <div class="nav-dots">
+    <span class="dot active" id="dot-1"></span>
+    <span class="dot" id="dot-2"></span>
+    <span class="dot" id="dot-3"></span>
+    <span class="dot" id="dot-4"></span>
+    <span class="dot" id="dot-5"></span>
+  </div>
+
+  <div class="pin-tag" id="pin">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 22s8-7 8-13a8 8 0 1 0-16 0c0 6 8 13 8 13z"/>
+      <circle cx="12" cy="9" r="2.5" fill="var(--bg)"/>
+    </svg>
+    <span>Encontrar Agenda</span>
+  </div>
+
+  <div class="flag-bars">
+    <div class="bar bar-light"></div>
+    <div class="bar bar-accent"></div>
+  </div>
+
+  <!-- Title (hero text) -->
+  <div id="title">Par<span class="accent-dot">i</span>s</div>
+  <div id="subtitle">Francia</div>
+
+  <!-- Hero image -->
+  <div id="hero"></div>
+
+  <!-- Orbital ring with plus icons -->
+  <div id="ring-wrap">
+    <svg id="ring-svg" viewBox="0 0 620 620">
+      <circle class="ring-circle" cx="310" cy="310" r="295" />
+    </svg>
+    <div class="plus" style="top: 12%; left: 78%;"></div>
+    <div class="plus" style="top: 50%; left: 95%;"></div>
+    <div class="plus" style="top: 88%; left: 60%;"></div>
+    <div class="plus" style="top: 65%; left: 4%;"></div>
+    <div class="plus" style="top: 22%; left: 12%;"></div>
+  </div>
+
+  <!-- Detail box (slide 2) -->
+  <div id="detail-box">
+    <div id="detail-title">Torre Eiffel</div>
+    <div id="detail-tag">Le tour de 330 mètres</div>
+    <p id="detail-text">
+      Gracias a su silueta única en el paisaje parisino, la Torre Eiffel se convirtió rápidamente
+      en uno de los monumentos más reconocidos del mundo. Inaugurada en 1889 para la Exposición Universal,
+      hoy recibe más visitantes que cualquier otro monumento de pago del planeta.
+    </p>
+    <div class="cta-row">
+      <button class="btn">Más</button>
+      <div class="cta-pin">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s8-7 8-13a8 8 0 1 0-16 0c0 6 8 13 8 13z"/></svg>
+        Encontrar Agenda
+      </div>
+    </div>
+  </div>
+
+  <!-- Thumbnails -->
+  <div id="thumbs">
+    <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&q=80');"></div>
+    <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80');"></div>
+    <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1520939817895-060bdaf4fe1b?w=400&q=80');"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stat" id="stat-1" style="top: 90px; right: -250px;">
+    <div class="num">330<span class="unit">mt</span></div>
+    <div class="label">Metros de altura</div>
+  </div>
+  <div class="stat" id="stat-2" style="top: 240px; left: -250px;">
+    <div class="num">7<span class="unit">M</span></div>
+    <div class="label">Visitantes al año</div>
+  </div>
+  <div class="stat" id="stat-3" style="top: 440px; left: -250px;">
+    <div class="num">10,100<span class="unit">Tn</span></div>
+    <div class="label">Hierro forjado</div>
+  </div>
+  <div class="stat" id="stat-4" style="top: 540px; right: -250px;">
+    <div class="num">1889</div>
+    <div class="label">Año de inauguración</div>
+  </div>
+
+  <!-- Media device (slide 4) -->
+  <div id="device">
+    <div id="device-screen">
+      <div id="device-caption">"París es una fiesta que te acompaña a donde vayas"</div>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div id="closing-quote">
+    <span class="q-mark">"</span>
+    <div class="q-text">París no se visita. Se descubre.</div>
+    <div class="q-author">— Honoré de Balzac</div>
+  </div>
+
+  <div class="vignette"></div>
+  <div class="hint">CLICK</div>
+
+</div>
+</div>
+
+<script>
+/* ---------- Responsive ---------- */
+function fitScale() {
+  const wrap = document.getElementById('scale-wrap');
+  const sx = window.innerWidth / 1280;
+  const sy = window.innerHeight / 720;
+  const s = Math.min(sx, sy) * 0.95;
+  wrap.style.transform = `scale(${s})`;
+}
+fitScale();
+window.addEventListener('resize', fitScale);
+
+/* ---------- Always-on micro-interactions ---------- */
+gsap.to("#pin svg", { scale: 1.18, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: -1 });
+gsap.to("#title .accent-dot", { y: -10, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+gsap.to(".plus", {
+  scale: 1.35, duration: 1.1, ease: "sine.inOut",
+  yoyo: true, repeat: -1, stagger: { each: 0.18, from: "random" }
+});
+
+/* ---------- Master timeline ---------- */
+const tl = gsap.timeline({ paused: true, defaults: { duration: 1, ease: "power3.inOut" } });
+
+gsap.set("#ring-wrap", { scale: 0, opacity: 0 });
+
+/* === SLIDE 2: hero rises, title shrinks to corner crumb, detail box appears === */
+tl.addLabel("slide2")
+  .to("#hero",      { y: 0, duration: 1.3, ease: "power3.out" }, "slide2")
+  .to("#title",     {
+    fontSize: 26, top: 80, left: 80, xPercent: 0, yPercent: 0,
+    letterSpacing: 0, opacity: 0.55, color: "var(--muted)",
+    duration: 1.0, ease: "power2.inOut"
+  }, "slide2")
+  .to("#subtitle",  {
+    top: 108, left: 80, fontSize: 11, letterSpacing: 3,
+    color: "var(--muted)", opacity: 0.6, xPercent: 0,
+    duration: 1.0
+  }, "slide2")
+  .to("#detail-box", { opacity: 1, x: 0, duration: 0.9, ease: "power3.out" }, "slide2+=0.5")
+  .from("#detail-title", { y: 30, opacity: 0, duration: 0.7 }, "slide2+=0.5")
+  .from("#detail-tag",   { y: 20, opacity: 0, duration: 0.7 }, "slide2+=0.65")
+  .from("#detail-text",  { y: 20, opacity: 0, duration: 0.7 }, "slide2+=0.8")
+  .from(".cta-row",      { y: 20, opacity: 0, duration: 0.7 }, "slide2+=0.95")
+  .to("#thumbs",    { opacity: 1, y: 0, duration: 0.8 }, "slide2+=1.0")
+  .from(".thumb",   { y: 30, opacity: 0, stagger: 0.12, duration: 0.6, ease: "back.out(1.4)" }, "slide2+=1.1")
+  .to("#stat-1",    { right: "8%", opacity: 1, ease: "back.out(1.2)", duration: 0.9 }, "slide2+=0.6")
+  .to("#dot-1",     { width: 5, height: 5, backgroundColor: "var(--muted)" }, "slide2")
+  .to("#dot-2",     { width: 11, height: 11, backgroundColor: "var(--text)" }, "slide2")
+  .to(".bar-light", { x: -25 }, "slide2")
+  .to(".bar-accent",{ x: 35 }, "slide2");
+
+/* === SLIDE 3: hero centers, ring appears, orbital stats === */
+tl.addLabel("slide3")
+  .to("#detail-box", { x: -600, opacity: 0, duration: 0.8, ease: "power2.in" }, "slide3")
+  .to("#thumbs",     { x: -400, opacity: 0, duration: 0.7 }, "slide3")
+  .to("#hero",       {
+    scale: 0.78, x: 0, y: 30,
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+    duration: 1.2
+  }, "slide3")
+  .to("#ring-wrap",  { scale: 1, opacity: 1, ease: "back.out(1.3)", duration: 1.3 }, "slide3+=0.3")
+  .to("#stat-1",     { top: "12%", right: "10%", scale: 0.9, opacity: 1 }, "slide3+=0.5")
+  .to("#stat-2",     { left: "12%", top: "26%", opacity: 1, ease: "back.out(1.2)", duration: 0.8 }, "slide3+=0.7")
+  .to("#stat-3",     { left: "10%", top: "62%", opacity: 1, ease: "back.out(1.2)", duration: 0.8 }, "slide3+=0.85")
+  .to("#stat-4",     { right: "12%", top: "65%", opacity: 1, ease: "back.out(1.2)", duration: 0.8 }, "slide3+=1.0")
+  .to("#dot-2",      { width: 5, height: 5, backgroundColor: "var(--muted)" }, "slide3")
+  .to("#dot-3",      { width: 11, height: 11, backgroundColor: "var(--text)" }, "slide3")
+  .to(".bar-light",  { x: 30 }, "slide3")
+  .to(".bar-accent", { x: -45 }, "slide3");
+
+/* Continuous ring rotation once it's visible */
+let ringRotation;
+tl.add(() => {
+  if (!ringRotation) {
+    ringRotation = gsap.to("#ring-svg", { rotation: 360, duration: 90, ease: "none", repeat: -1, transformOrigin: "center" });
+  }
+}, "slide3+=1.5");
+
+/* === SLIDE 4: media device slides in === */
+tl.addLabel("slide4")
+  .to(["#hero", "#ring-wrap"], { x: -350, scale: 0.62, duration: 1.0 }, "slide4")
+  .to("#stat-1", { top: "16%", right: "auto", left: "30%", scale: 0.75, opacity: 0.85 }, "slide4")
+  .to("#stat-2", { top: "32%", left: "8%", scale: 0.75, opacity: 0.85 }, "slide4")
+  .to("#stat-3", { top: "48%", left: "8%", scale: 0.75, opacity: 0.85 }, "slide4")
+  .to("#stat-4", { top: "64%", left: "8%", right: "auto", scale: 0.75, opacity: 0.85 }, "slide4")
+  .to("#device", { right: 80, top: 170, duration: 1.2, ease: "power3.out" }, "slide4+=0.3")
+  .to("#dot-3", { width: 5, height: 5, backgroundColor: "var(--muted)" }, "slide4")
+  .to("#dot-4", { width: 11, height: 11, backgroundColor: "var(--text)" }, "slide4")
+  .to(".bar-light",  { x: -10 }, "slide4")
+  .to(".bar-accent", { x: 25 }, "slide4");
+
+/* Ken Burns on device */
+tl.add(() => {
+  gsap.to("#device-screen", { scale: 1.08, duration: 8, ease: "sine.inOut", yoyo: true, repeat: -1 });
+}, "slide4+=1.5");
+
+/* === SLIDE 5: closing — hero zooms, quote appears === */
+tl.addLabel("slide5")
+  .to("#device", { right: -700, opacity: 0.5, duration: 0.9, ease: "power2.in" }, "slide5")
+  .to(["#stat-1", "#stat-2", "#stat-3", "#stat-4"], {
+    opacity: 0, x: -100, duration: 0.7, stagger: 0.06
+  }, "slide5")
+  .to("#ring-wrap", {
+    scale: 1.4, opacity: 0.15, x: 0, y: 0, duration: 1.2
+  }, "slide5")
+  .to("#hero", {
+    scale: 1.05, x: 0, y: -20, opacity: 0.55,
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+    duration: 1.4, ease: "power3.out"
+  }, "slide5")
+  .to("#closing-quote", {
+    bottom: "30%", opacity: 1, duration: 1.0, ease: "power3.out"
+  }, "slide5+=0.5")
+  .to("#dot-4", { width: 5, height: 5, backgroundColor: "var(--muted)" }, "slide5")
+  .to("#dot-5", { width: 11, height: 11, backgroundColor: "var(--text)" }, "slide5")
+  .to(".bar-light", { x: 0 }, "slide5")
+  .to(".bar-accent", { x: 0 }, "slide5");
+
+/* ---------- Click to advance ---------- */
+const labels = ["slide2", "slide3", "slide4", "slide5"];
+let cursor = 0;
+let isAnimating = false;
+
+document.getElementById("slide").addEventListener("click", () => {
+  if (isAnimating) return;
+  isAnimating = true;
+  if (cursor < labels.length) {
+    tl.tweenTo(labels[cursor], { onComplete: () => isAnimating = false });
+    cursor++;
+  } else {
+    tl.tweenTo(0, { onComplete: () => isAnimating = false });
+    cursor = 0;
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (isAnimating) return;
+  if (e.key === "ArrowRight" || e.key === " ") {
+    e.preventDefault();
+    if (cursor < labels.length) {
+      isAnimating = true;
+      tl.tweenTo(labels[cursor], { onComplete: () => isAnimating = false });
+      cursor++;
+    }
+  }
+  if (e.key === "ArrowLeft") {
+    e.preventDefault();
+    if (cursor > 0) {
+      isAnimating = true;
+      cursor--;
+      tl.tweenTo(cursor === 0 ? 0 : labels[cursor - 1], { onComplete: () => isAnimating = false });
+    }
+  }
+});
+</script>
+</body>
+</html>

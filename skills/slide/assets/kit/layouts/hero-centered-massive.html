@@ -1,0 +1,64 @@
+<!--
+  LAYOUT 1 — hero-centered-massive
+  ============================================
+  Role: opening when the topic deserves a stage all to itself.
+  Use with: rule-of-thirds, centered-radial grids; minimal-poetic, dense-editorial stances.
+
+  Shared elements set up here:
+    - #title (160-200px, centered, will shrink+relocate on next slide)
+    - #hero (off-screen below, ready to rise into next slide)
+-->
+
+<div class="slide current" data-mode="linear" id="slide-1">
+  <!-- Subtitle above title -->
+  <div class="kicker">[REPLACE — small caps subtitle e.g. country/category]</div>
+</div>
+
+<!-- These two live OUTSIDE .slide containers — they're shared morph elements -->
+<div id="title">[REPLACE — title text, 1-2 words ideal]<span class="accent-dot">.</span></div>
+<div id="hero" style="background-image: url('[REPLACE — hero image URL]');"></div>
+
+<style>
+.kicker {
+  position: absolute;
+  top: calc(50% - 130px); left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent);
+}
+
+#title {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 184px;
+  letter-spacing: -3px;
+  line-height: 1;
+  color: var(--text);
+  z-index: 6;
+  white-space: nowrap;
+}
+#title .accent-dot { color: var(--accent); display: inline-block; }
+
+#hero {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%) translateY(800px);
+  width: 720px; height: 720px;
+  background-size: cover;
+  background-position: center;
+  z-index: 4;
+}
+</style>
+
+<!--
+  MORPH PLAN (when transitioning to next slide):
+    #title shrinks to ~64px and relocates to top-left corner
+    #hero rises into view (translateY: 0)
+    .kicker fades out
+
+  MICRO-INTERACTION on this slide:
+    .accent-dot does a continuous yoyo (y: -8, 1.2s, sine.inOut, repeat: -1)
+-->

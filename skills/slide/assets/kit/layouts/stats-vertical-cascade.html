@@ -1,0 +1,71 @@
+<!--
+  LAYOUT 12 — stats-vertical-cascade
+  ============================================
+  Stats stacked vertically, left-aligned, each LARGER than the one above.
+  The biggest stat at the BOTTOM is the load-bearing one (from Q2 of critical-thinking.md).
+
+  Role: stats with editorial drama — building up to the biggest number.
+  Use with: vertical-thirds, magazine-spread; dense-editorial, fashion-bold stances.
+  PIVOTAL-SLIDE CANDIDATE (the load-bearing stat lives here).
+-->
+
+<div class="slide" data-mode="linear" id="slide-N">
+  <h2 class="cascade-title">[REPLACE]</h2>
+
+  <div class="cascade">
+    <div class="cascade-stat" data-tier="3">
+      <span class="csc-num">[REPLACE — smallest stat]</span>
+      <span class="csc-label">[REPLACE]</span>
+    </div>
+    <div class="cascade-stat" data-tier="2">
+      <span class="csc-num">[REPLACE — medium stat]</span>
+      <span class="csc-label">[REPLACE]</span>
+    </div>
+    <div class="cascade-stat" data-tier="1">
+      <span class="csc-num">[REPLACE — load-bearing stat, biggest]</span>
+      <span class="csc-label">[REPLACE]</span>
+    </div>
+  </div>
+</div>
+
+<style>
+.cascade-title {
+  position: absolute;
+  top: 80px; left: 80px;
+  font-family: var(--display);
+  font-size: 48px; font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.cascade {
+  position: absolute;
+  top: 200px; left: 80px;
+  display: flex; flex-direction: column;
+  gap: 32px;
+}
+
+.cascade-stat {
+  display: flex; align-items: baseline; gap: 24px;
+}
+.csc-num {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 0.95; letter-spacing: -3px;
+  color: var(--text);
+  font-feature-settings: "tnum";
+}
+.csc-label {
+  font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cascade-stat[data-tier="3"] .csc-num { font-size: 72px; }
+.cascade-stat[data-tier="2"] .csc-num { font-size: 128px; }
+.cascade-stat[data-tier="1"] .csc-num { font-size: 220px; color: var(--accent); }
+</style>
+
+<!--
+  MICRO-INTERACTIONS: stats fade-in bottom-to-top (smallest first, biggest last with most drama).
+                     The load-bearing stat (.tier-1) gets the longest dwell and the accent color.
+-->

@@ -1,0 +1,183 @@
+<!--
+  ACCENT GEOMETRIES LIBRARY
+  ============================================
+  SVG symbols that can be referenced via <use href="#geom-name"/> in your deck.
+
+  HOW TO USE:
+    1. Inline this entire <svg> at the top of the deck (it's hidden via display:none).
+    2. Reference any symbol with <svg><use href="#geom-arc-quarter"/></svg> inside slides.
+    3. Color via CSS: the symbols use currentColor so they inherit text color.
+
+  THE DIRECTION BRIEF specifies ONE geometry for the whole deck. Use that one
+  consistently across slides — that's what creates visual coherence. Don't mix
+  arcs on one slide and triangles on another unless the brief explicitly says so.
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;position:absolute;width:0;height:0;" aria-hidden="true">
+  <defs>
+
+    <!-- =============================================
+         CIRCLES — orbits, halos, holes, lenses
+         ============================================= -->
+    <symbol id="geom-circle-outline" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <symbol id="geom-circle-dotted" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 6"/>
+    </symbol>
+
+    <symbol id="geom-circle-halved" viewBox="0 0 100 100">
+      <path d="M 50 2 A 48 48 0 0 1 50 98" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- =============================================
+         TRIANGLES — direction, tension, mountain, threat
+         ============================================= -->
+    <symbol id="geom-triangle-up" viewBox="0 0 100 100">
+      <polygon points="50,5 95,90 5,90" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="geom-triangle-filled" viewBox="0 0 100 100">
+      <polygon points="50,5 95,90 5,90" fill="currentColor"/>
+    </symbol>
+
+    <symbol id="geom-triangle-right" viewBox="0 0 100 100">
+      <polygon points="10,15 90,50 10,85" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- =============================================
+         ARCS — elegant, restrained, partial circles
+         ============================================= -->
+    <symbol id="geom-arc-quarter" viewBox="0 0 100 100">
+      <path d="M 0 100 A 100 100 0 0 0 100 0" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <symbol id="geom-arc-third" viewBox="0 0 100 100">
+      <path d="M 10 90 Q 50 -10 90 90" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <symbol id="geom-arc-bracket" viewBox="0 0 100 200">
+      <path d="M 100 0 Q 0 100 100 200" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- =============================================
+         BLOCKS — brutalist, confident, plates
+         ============================================= -->
+    <symbol id="geom-block" viewBox="0 0 100 100">
+      <rect x="0" y="0" width="100" height="100" fill="currentColor"/>
+    </symbol>
+
+    <symbol id="geom-block-outline" viewBox="0 0 100 100">
+      <rect x="2" y="2" width="96" height="96" fill="none" stroke="currentColor" stroke-width="3"/>
+    </symbol>
+
+    <symbol id="geom-block-corner-l" viewBox="0 0 100 100">
+      <path d="M 5 5 L 5 95 L 95 95" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="miter" stroke-linecap="square"/>
+    </symbol>
+
+    <!-- =============================================
+         SUNBURST — radial lines, high energy, revelation
+         ============================================= -->
+    <symbol id="geom-sunburst" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="1" stroke-linecap="round">
+        <line x1="50" y1="50" x2="50" y2="5"/>
+        <line x1="50" y1="50" x2="82" y2="18"/>
+        <line x1="50" y1="50" x2="95" y2="50"/>
+        <line x1="50" y1="50" x2="82" y2="82"/>
+        <line x1="50" y1="50" x2="50" y2="95"/>
+        <line x1="50" y1="50" x2="18" y2="82"/>
+        <line x1="50" y1="50" x2="5" y2="50"/>
+        <line x1="50" y1="50" x2="18" y2="18"/>
+        <line x1="50" y1="50" x2="68" y2="8"/>
+        <line x1="50" y1="50" x2="92" y2="32"/>
+        <line x1="50" y1="50" x2="92" y2="68"/>
+        <line x1="50" y1="50" x2="68" y2="92"/>
+        <line x1="50" y1="50" x2="32" y2="92"/>
+        <line x1="50" y1="50" x2="8" y2="68"/>
+        <line x1="50" y1="50" x2="8" y2="32"/>
+        <line x1="50" y1="50" x2="32" y2="8"/>
+      </g>
+    </symbol>
+
+    <symbol id="geom-sunburst-half" viewBox="0 0 100 50">
+      <g stroke="currentColor" stroke-width="1" stroke-linecap="round">
+        <line x1="50" y1="50" x2="50" y2="0"/>
+        <line x1="50" y1="50" x2="20" y2="5"/>
+        <line x1="50" y1="50" x2="80" y2="5"/>
+        <line x1="50" y1="50" x2="5" y2="25"/>
+        <line x1="50" y1="50" x2="95" y2="25"/>
+        <line x1="50" y1="50" x2="35" y2="2"/>
+        <line x1="50" y1="50" x2="65" y2="2"/>
+      </g>
+    </symbol>
+
+    <!-- =============================================
+         WAVEFORM — rhythm, sound, motion, time
+         ============================================= -->
+    <symbol id="geom-waveform" viewBox="0 0 200 40">
+      <path d="M 0 20 Q 12.5 0 25 20 T 50 20 T 75 20 T 100 20 T 125 20 T 150 20 T 175 20 T 200 20" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <symbol id="geom-waveform-sharp" viewBox="0 0 200 40">
+      <polyline points="0,20 25,4 50,20 75,36 100,20 125,4 150,20 175,36 200,20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="geom-waveform-double" viewBox="0 0 200 60">
+      <path d="M 0 20 Q 12.5 8 25 20 T 50 20 T 75 20 T 100 20 T 125 20 T 150 20 T 175 20 T 200 20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <path d="M 0 40 Q 12.5 28 25 40 T 50 40 T 75 40 T 100 40 T 125 40 T 150 40 T 175 40 T 200 40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- =============================================
+         GRID — technical, organized, blueprint
+         ============================================= -->
+    <symbol id="geom-grid-dots" viewBox="0 0 100 100">
+      <g fill="currentColor">
+        <circle cx="20" cy="20" r="1"/><circle cx="40" cy="20" r="1"/><circle cx="60" cy="20" r="1"/><circle cx="80" cy="20" r="1"/>
+        <circle cx="20" cy="40" r="1"/><circle cx="40" cy="40" r="1"/><circle cx="60" cy="40" r="1"/><circle cx="80" cy="40" r="1"/>
+        <circle cx="20" cy="60" r="1"/><circle cx="40" cy="60" r="1"/><circle cx="60" cy="60" r="1"/><circle cx="80" cy="60" r="1"/>
+        <circle cx="20" cy="80" r="1"/><circle cx="40" cy="80" r="1"/><circle cx="60" cy="80" r="1"/><circle cx="80" cy="80" r="1"/>
+      </g>
+    </symbol>
+
+    <symbol id="geom-grid-lines" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="0.4" opacity="0.5">
+        <line x1="0" y1="25" x2="100" y2="25"/>
+        <line x1="0" y1="50" x2="100" y2="50"/>
+        <line x1="0" y1="75" x2="100" y2="75"/>
+        <line x1="25" y1="0" x2="25" y2="100"/>
+        <line x1="50" y1="0" x2="50" y2="100"/>
+        <line x1="75" y1="0" x2="75" y2="100"/>
+      </g>
+    </symbol>
+
+    <symbol id="geom-crosshair" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="1" fill="none">
+        <line x1="50" y1="0" x2="50" y2="35"/>
+        <line x1="50" y1="65" x2="50" y2="100"/>
+        <line x1="0" y1="50" x2="35" y2="50"/>
+        <line x1="65" y1="50" x2="100" y2="50"/>
+        <circle cx="50" cy="50" r="15"/>
+      </g>
+    </symbol>
+
+  </defs>
+</svg>
+
+<!--
+  USAGE EXAMPLE:
+
+  <!-- At top of the body, before the deck: -->
+  <svg ...defs above...></svg>
+
+  <!-- Inside a slide where you want to place a geometric accent: -->
+  <svg class="accent" style="position:absolute;top:60px;right:80px;width:80px;height:80px;color:var(--accent);">
+    <use href="#geom-arc-quarter"/>
+  </svg>
+
+  PLACEMENT RULES:
+    - Max 3 geometric accents per slide. More than that = decoration noise.
+    - The geometry must match what was picked in the Direction Brief.
+    - Don't mix geometry families on the same slide unless the brief explicitly calls for it.
+    - Accent color is var(--accent) at full or var(--muted) at low opacity for ambient placement.
+-->

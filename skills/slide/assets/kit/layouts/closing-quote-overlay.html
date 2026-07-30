@@ -1,0 +1,56 @@
+<!--
+  LAYOUT 16 — closing-quote-overlay
+  ============================================
+  Hero scales up to fill canvas at low opacity (~0.22). A single quote rises
+  from the bottom in 36-48px serif. Quote attribution in small caps below.
+
+  Role: final hero composition with editorial weight.
+  Use with: any grid; any stance except brutalist.
+
+  AVOID for the pivotal slide — this is a *closing* primitive.
+  AVOID if you can't source a real quote (don't invent quotes attributable to real people).
+-->
+
+<div class="slide" data-mode="linear" id="slide-N">
+  <blockquote class="closing-quote">
+    "[REPLACE — quote text, max 25 words]"
+  </blockquote>
+  <div class="quote-attribution">
+    [REPLACE — author name, year/source]
+  </div>
+</div>
+
+<!-- #hero positioned full-bleed at low opacity via morph -->
+
+<style>
+.closing-quote {
+  position: absolute;
+  bottom: 200px; left: 80px; right: 80px;
+  max-width: 1000px;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 1.25;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quote-attribution {
+  position: absolute;
+  bottom: 140px; left: 80px; right: 80px;
+  text-align: center;
+  font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent);
+}
+</style>
+
+<!--
+  MORPH PLAN: hero scales up to 1.08, opacity drops to 0.22. Quote rises from y:60 to y:0 with opacity 0→1.
+  ATTRIBUTION RULES:
+    - If the quote source is unknown, use anonymous attribution (e.g. "Proverbio andino")
+    - NEVER fabricate a quote attributable to a real named person
+    - If no real quote exists, use closing-tunnel-zoom instead
+-->

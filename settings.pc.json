@@ -1,0 +1,56 @@
+{
+  "env": {
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "KIMI_PLUGIN_CC_HOOK_SCRIPT": "C:/Users/mauri/.claude/kimi-plugin-cc/approval-hook.js"
+  },
+  "permissions": {
+    "allow": [
+      "mcp__pencil"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "playground@claude-plugins-official": true,
+    "firecrawl@claude-plugins-official": true,
+    "learning-output-style@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "supabase@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "codex@openai-codex": true,
+    "kimi@kimi-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "kimi-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "linxule/kimi-plugin-cc"
+      }
+    }
+  },
+  "language": "español",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "teammateMode": "in-process",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
+}
