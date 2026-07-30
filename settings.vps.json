@@ -1,7 +1,15 @@
 {
   "hooks": {
     "PreToolUse": [
-      { "matcher": "Bash", "hooks": [ { "type": "command", "command": "bash $HOME/claude-config/hooks/block-dangerous.sh" } ] }
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/claude-config/hooks/block-dangerous.sh"
+          }
+        ]
+      }
     ]
   },
   "env": {
@@ -13,10 +21,8 @@
   "permissions": {
     "allow": [
       "Read(**)",
-      "Glob(**)",
       "Grep(**)",
       "Edit(**)",
-      "Write(**)",
       "WebSearch",
       "WebFetch",
       "Task",
@@ -40,7 +46,63 @@
       "Bash(gh issue:*)",
       "Bash(curl http://127.0.0.1:*)",
       "Bash(curl http://localhost:*)",
-      "mcp__pencil"
+      "mcp__pencil",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(tree:*)",
+      "Bash(stat:*)",
+      "Bash(file:*)",
+      "Bash(du:*)",
+      "Bash(df:*)",
+      "Bash(pwd)",
+      "Bash(cd:*)",
+      "Bash(echo:*)",
+      "Bash(printf:*)",
+      "Bash(date:*)",
+      "Bash(which:*)",
+      "Bash(test:*)",
+      "Bash(diff:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cut:*)",
+      "Bash(tr:*)",
+      "Bash(sed:*)",
+      "Bash(awk:*)",
+      "Bash(jq:*)",
+      "Bash(basename:*)",
+      "Bash(dirname:*)",
+      "Bash(realpath:*)",
+      "Bash(readlink:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(ln:*)",
+      "Bash(tee:*)",
+      "Bash(python3:*)",
+      "Bash(pip:*)",
+      "Bash(timeout:*)",
+      "Bash(sleep:*)",
+      "Bash(ps:*)",
+      "Bash(kill:*)",
+      "Bash(pkill:*)",
+      "Bash(ss:*)",
+      "Bash(fuser:*)",
+      "Bash(git fetch:*)",
+      "Bash(git switch:*)",
+      "Bash(git restore:*)",
+      "Bash(git show:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git merge:*)",
+      "Bash(npx playwright:*)",
+      "Bash(make:*)"
     ],
     "deny": [
       "Read(./.env)",
@@ -101,7 +163,7 @@
       }
     }
   },
-  "language": "espaÃ±ol",
+  "language": "español",
   "effortLevel": "xhigh",
   "teammateMode": "in-process"
 }
