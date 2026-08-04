@@ -124,7 +124,8 @@
       "Bash(reboot:*)",
       "Bash(git push --force:*)",
       "Bash(git push origin main:*)",
-      "Bash(git push origin master:*)"
+      "Bash(git push origin master:*)",
+      "mcp__plugin_supabase_supabase__*"
     ],
     "ask": [
       "Bash(git push:*)",
