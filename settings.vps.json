@@ -102,7 +102,13 @@
       "Bash(git rev-parse:*)",
       "Bash(git merge:*)",
       "Bash(npx playwright:*)",
-      "Bash(make:*)"
+      "Bash(make:*)",
+      "Bash(git push:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh api:*)",
+      "Bash(gh run:*)",
+      "Skill",
+      "mcp__supabase__*"
     ],
     "deny": [
       "Read(./.env)",
@@ -164,6 +170,6 @@
     }
   },
   "language": "español",
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "teammateMode": "in-process"
 }
