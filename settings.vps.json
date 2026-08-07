@@ -42,6 +42,7 @@
       "Bash(yarn:*)",
       "Bash(bun:*)",
       "Bash(node:*)",
+      "Bash(graphify:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
