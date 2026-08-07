@@ -9,6 +9,15 @@
             "command": "bash $HOME/claude-config/hooks/block-dangerous.sh"
           }
         ]
+      },
+      {
+        "matcher": "mcp__supabase__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/claude-config/hooks/mcp-supabase-guard.sh"
+          }
+        ]
       }
     ]
   },

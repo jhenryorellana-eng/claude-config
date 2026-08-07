@@ -8,8 +8,15 @@
 #  Se edita SIEMPRE en la PC y se sincroniza al VPS con git.
 # ============================================================================
 input="$(cat)"
-cmd="$(printf '%s' "$input" | jq -r '.tool_input.command // ""' 2>/dev/null)"
-[ -z "$cmd" ] && exit 0
+if command -v jq >/dev/null 2>&1; then
+  cmd="$(printf '%s' "$input" | jq -r '.tool_input.command // ""' 2>/dev/null)"
+  # jq presente pero extracción vacía → payload sin comando: permitir.
+  [ -z "$cmd" ] && exit 0
+else
+  # Sin jq (p. ej. Git Bash pelado): evaluar el payload CRUDO. Preferimos un
+  # falso positivo raro a un guard que no guarda nada.
+  cmd="$input"
+fi
 
 # ---------------------------------------------------------------------------
 #  IMPORTANTE: cada patrón es un regex ERE evaluado con grep -Ei.
@@ -46,6 +53,8 @@ patrones=(
   'git[[:space:]]+push[[:space:]]+[^[:space:]]+[[:space:]]+(main|master)([[:space:]]|$)'
   'git[[:space:]]+reset[[:space:]]+--hard[[:space:]]+origin'
   'git[[:space:]]+clean[[:space:]]+-[a-z]*f[a-z]*d'
+  # flags separadas ('git clean -f -d' / '-d -f') — hueco detectado el 4-ago
+  'git[[:space:]]+clean([[:space:]]+-[a-zA-Z]+)*[[:space:]]+-[a-zA-Z]*f'
 
   # Producción — AJUSTA ESTO a tus hostnames/dominios reales y descomenta
   # 'ssh[[:space:]]+[^[:space:]]*@(api|www)\.tudominio\.com'

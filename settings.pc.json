@@ -8,9 +8,45 @@
     "allow": [
       "mcp__pencil"
     ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(**/.env.local)",
+      "Read(**/.env.prod.local)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Read(C:\\Users\\mauri\\.ssh\\**)",
+      "Read(~/.ssh/**)",
+      "Read(**/.credentials.json)",
+      "Read(C:\\Users\\mauri\\.claude\\.credentials.json)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" \"C:\\Users\\mauri\\claude-config\\hooks\\block-dangerous.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__supabase__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" \"C:\\Users\\mauri\\claude-config\\hooks\\mcp-supabase-guard.sh\""
+          }
+        ]
+      }
+    ]
+  },
+  "model": "claude-fable-5[1m]",
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
