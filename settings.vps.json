@@ -117,6 +117,7 @@
       "Bash(gh repo:*)",
       "Bash(gh api:*)",
       "Bash(gh run:*)",
+      "Bash(gh auth status)",
       "Skill",
       "mcp__supabase__*"
     ],
@@ -138,7 +139,6 @@
       "mcp__plugin_supabase_supabase__*"
     ],
     "ask": [
-      "Bash(git push:*)",
       "Bash(npm publish:*)"
     ],
     "defaultMode": "acceptEdits"
