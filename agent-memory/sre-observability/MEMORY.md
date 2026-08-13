@@ -1,4 +1,4 @@
-# Memoria de oficio — devops-engineer
+# Memoria de oficio — sre-observability
 > Máximo 200 líneas cargadas. Curaduría: agent-ops.
 
 ## Patrones confirmados

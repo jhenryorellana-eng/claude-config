@@ -1,4 +1,4 @@
-# Memoria de oficio — devops-engineer
+# Memoria de oficio — performance-engineer
 > Máximo 200 líneas cargadas. Curaduría: agent-ops.
 
 ## Patrones confirmados

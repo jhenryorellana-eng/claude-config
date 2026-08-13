@@ -1,4 +1,4 @@
-# Memoria de oficio — devops-engineer
+# Memoria de oficio — refactoring-specialist
 > Máximo 200 líneas cargadas. Curaduría: agent-ops.
 
 ## Patrones confirmados
