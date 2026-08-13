@@ -3,7 +3,7 @@
 > Agent Teams corre SOLO en la PC (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`,
 > `teammateMode: in-process`). En el VPS queda apagado (`AGENT_TEAMS=0`): un
 > team consume ~7× tokens y la cola no lo necesita.
-> Todos los teammate types de abajo existen en `~/.claude/agents/` (roster de 13).
+> Todos los teammate types de abajo existen en `~/.claude/agents/` (roster de 18).
 > Regla de oro: 3-5 teammates, 5-6 tareas por teammate, un team a la vez,
 > "clean up the team" al terminar.
 
@@ -15,8 +15,8 @@
 Create an agent team to build a motion-rich landing for [BRIEF DEL NEGOCIO].
 Spawn 3 teammates using existing agent types:
 - ux-designer: user flows, information architecture, wireframes, estados vacíos/error
-- ui-designer: sistema visual (tokens, tipografía, paleta), DESIGN.md, gate web-design-guidelines
-- frontend-builder: implementación Next.js/React + motion (GSAP/Lenis vía skill motionsites-architect)
+- ui-designer: sistema visual (tokens, tipografía, paleta) con skill design-system, DESIGN.md
+- frontend-builder: implementación Next.js/React + motion (GSAP/Lenis vía skill motion)
 Have them coordinate via shared task list and message each other directly.
 ux-designer entrega wireframe ANTES de que ui-designer elija estética;
 frontend-builder no escribe código hasta tener DESIGN.md aprobado.
@@ -71,7 +71,19 @@ Spawn 5 teammates using existing agent types:
 security-auditor revisa al final y puede BLOQUEAR con <<BLOCK-DEPLOY>>.
 ```
 
-## 6. Research + análisis competitivo
+## 6. Respuesta a incidente de producción (v3)
+
+```
+Create an agent team to respond to this production incident: [SÍNTOMA].
+Spawn 3 teammates using existing agent types:
+- sre-observability: triage SEV, timeline, coordina; escribe el postmortem al cierre
+- devops-engineer: ejecuta la mitigación decidida (rollback / redeploy / config)
+- security-auditor: SOLO si hay indicio de explotación — lidera el forense
+Rules: mitigación ANTES que causa raíz; sre-observability declara <<INCIDENT>>
+y solo lo levanta con el postmortem publicado en docs/historial/.
+```
+
+## 7. Research + análisis competitivo
 
 ```
 Create an agent team to research [TEMA/MERCADO].

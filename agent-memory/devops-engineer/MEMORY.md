@@ -1,8 +1,11 @@
-﻿# Persistent Memory for devops-engineer
+# Memoria de oficio — devops-engineer
+> Máximo 200 líneas cargadas. Curaduría: agent-ops.
 
-_This file is loaded at the start of each invocation. Keep entries concise. Lines after 200 are truncated._
+## Patrones confirmados
+_(vacío — se llena con la práctica)_
 
-## Patterns learned
+## Trampas pagadas
+_(vacío)_
 
-_(empty — append as you discover patterns)_
-
+## Preferencias de Mauri/Henry
+_(vacío)_

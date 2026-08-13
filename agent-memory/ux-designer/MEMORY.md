@@ -1,3 +1,11 @@
-# MEMORY - ux-designer
+# Memoria de oficio — ux-designer
+> Máximo 200 líneas cargadas. Curaduría: agent-ops.
 
-Aprendizajes duraderos del rol (patrones que funcionaron, trampas del stack, decisiones con su porque). Leer al inicio de cada invocacion; anadir al final. Nunca secretos ni PII.
+## Patrones confirmados
+_(vacío — se llena con la práctica)_
+
+## Trampas pagadas
+_(vacío)_
+
+## Preferencias de Mauri/Henry
+_(vacío)_
