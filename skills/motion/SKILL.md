@@ -1,6 +1,15 @@
 ---
 name: motion
-description: Build cinematic, motion-rich landing pages and hero sections following the "motionsites.ai" methodology — deep topic research, free asset curation from the open web, pixel-perfect technical spec generation, and final code execution. Use this skill whenever the user asks to build a landing page, hero section, portfolio site, product launch page, agency site, or any animated/cinematic website — ESPECIALLY when they mention videos as backgrounds, glassmorphism, liquid glass, scroll-driven animations, magnetic hover, sticky stacking cards, marquee scrolls, character-by-character text reveals, blur entrance, gradient text, or motion-rich design. Also trigger when the user pastes a motionsites.ai-style spec prompt and wants to recreate, adapt, or extend it. Trigger even on casual phrasings like "make me a cool landing page", "design something modern with video", "build a hero like X", or "I want a portfolio that looks expensive". NO es micro-interacciones de un producto existente (/impeccable:animate) ni elección de paleta (design-system).
+description: >
+  Construye landings y hero sections cinemáticos con la metodología motionsites:
+  research del nicho, dirección creativa, curaduría de assets libres con URL
+  directa verificada, spec de transcripción técnica total (cada texto literal,
+  cada delay numérico, cada URL hardcodeada) y build final. Usa cuando se pida
+  "landing cinemática", "hero con video de fondo", "motion-rich", "sticky
+  stacking cards", "scroll-driven", "marquee scroll", "liquid glass",
+  "glassmorphism", "portfolio que se vea caro", o al pegar un spec estilo
+  motionsites para adaptar. NO es micro-interacciones de un producto existente
+  (/impeccable:animate) ni elección de paleta (design-system).
 ---
 
 # Motionsites Architect
