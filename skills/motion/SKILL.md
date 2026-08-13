@@ -1,25 +1,19 @@
 ---
-name: motionsites-architect
-description: Build cinematic, motion-rich landing pages and hero sections following the "motionsites.ai" methodology — deep topic research, free asset curation from the open web, pixel-perfect technical spec generation, and final code execution. Use this skill whenever the user asks to build a landing page, hero section, portfolio site, product launch page, agency site, or any animated/cinematic website — ESPECIALLY when they mention videos as backgrounds, glassmorphism, liquid glass, scroll-driven animations, magnetic hover, sticky stacking cards, marquee scrolls, character-by-character text reveals, blur entrance, gradient text, or motion-rich design. Also trigger when the user pastes a motionsites.ai-style spec prompt and wants to recreate, adapt, or extend it. Trigger even on casual phrasings like "make me a cool landing page", "design something modern with video", "build a hero like X", or "I want a portfolio that looks expensive".
+name: motion
+description: Build cinematic, motion-rich landing pages and hero sections following the "motionsites.ai" methodology — deep topic research, free asset curation from the open web, pixel-perfect technical spec generation, and final code execution. Use this skill whenever the user asks to build a landing page, hero section, portfolio site, product launch page, agency site, or any animated/cinematic website — ESPECIALLY when they mention videos as backgrounds, glassmorphism, liquid glass, scroll-driven animations, magnetic hover, sticky stacking cards, marquee scrolls, character-by-character text reveals, blur entrance, gradient text, or motion-rich design. Also trigger when the user pastes a motionsites.ai-style spec prompt and wants to recreate, adapt, or extend it. Trigger even on casual phrasings like "make me a cool landing page", "design something modern with video", "build a hero like X", or "I want a portfolio that looks expensive". NO es micro-interacciones de un producto existente (/impeccable:animate) ni elección de paleta (design-system).
 ---
 
 # Motionsites Architect
 
 A skill for building cinematic, motion-rich web pages following the methodology pioneered by **motionsites.ai** — but adapted to use **only free, openly-available assets** found via web research instead of a paid CDN library.
 
-## When invoked as Agent Team teammate
+## Cuando corres dentro del pipeline UI
 
-If this skill is invoked by an agent running as a teammate in an Agent Team (vs solo subagent), the agent should:
+Si esta skill se invoca dentro del pipeline UI del equipo, la paleta la valida `ui-designer` antes de cerrar la dirección creativa (Phase 2).
 
-1. **Check the shared task list** — claim asset curation tasks (Phase 3) and creative direction tasks (Phase 2) rather than running all 5 phases solo
-2. **Use `SendMessage(to=<teammate>, message=<text>)`** to communicate:
-   - With `ui-master`: confirm palette decisions don't violate industry conventions before locking creative direction
-   - With `disruptive-landing-builder`: agree on motor de animación (Framer Motion vs GSAP vanilla) before generating spec
-3. **Skip Phase 5 (Build)** if `disruptive-landing-builder` is leading the build (motor = GSAP vanilla). Pass spec.md to them instead.
-4. **Lead Phase 5** if motor = Framer Motion + React stack.
-5. **Read CLAUDE.md** in working directory for project-specific context
+El build lo lidera `frontend-builder`: si él está a cargo, entrégale el spec de Phase 4 y no ejecutes Phase 5.
 
-When team is debating a decision, you contribute the motion vocabulary expertise + asset sourcing expertise — but defer to `ui-master` on UX/industry palette and to `disruptive-landing-builder` on scroll engineering specifics.
+Lee el `CLAUDE.md` del directorio de trabajo para el contexto específico del proyecto.
 
 ---
 
@@ -51,7 +45,7 @@ Walk through these five phases sequentially. Don't skip any. At the end of each 
 
 **Step 1a — Gather the brief**
 
-Ask the user up to 3 questions max (use `ask_user_input_v0` when on a chat interface — it's far easier than typing answers). Cover:
+Ask the user up to 3 questions max (use `AskUserQuestion` — it's far easier than typing answers). Cover:
 
 1. **The topic/brand** — what is this page for? (e.g., a private jet service, a film studio, a portfolio for a 3D artist, a fintech SaaS, a wellness brand)
 2. **The mood / aesthetic preference** — one of: dark cinematic, warm cream cinematic, futuristic glass, minimal brutalist, organic earthy, neon retro, editorial print, or "surprise me"
@@ -61,13 +55,13 @@ If the user already gave a brief, skip the interview and just confirm your readi
 
 **Step 1b — Research the topic on the web**
 
-Use `web_search` to ground the page in the real domain. Search at least 3 angles:
+Use `WebSearch` to ground the page in the real domain. Search at least 3 angles:
 
 - The topic itself — to capture accurate terminology, key offerings, audience pains, common claims ("private jet service offerings 2026", "film studio portfolio sections", etc.)
 - Visual references — search `site:awwwards.com [topic]`, `site:godly.website [topic]`, `site:landings.dev [topic]`, or generic queries like "best [topic] landing pages 2026"
 - Typography & design trends in that niche — luxury verticals prefer serif headlines, dev tools prefer mono accents, wellness uses warm palettes, etc.
 
-Read 2-4 of the most relevant search results in full with `web_fetch` to capture nuance. Do NOT just read snippets.
+Read 2-4 of the most relevant search results in full with `WebFetch` to capture nuance. Do NOT just read snippets.
 
 **Step 1c — Summarize findings to the user**
 
@@ -102,6 +96,8 @@ Decide and present to the user:
 | Bold portfolio | Boldonse / Bowlby One | Inter |
 
 Always italicize Instrument Serif when used for display — it's the secret sauce.
+
+Para tipografía fuera de estos moods consulta la skill `design-system`; su blacklist manda.
 
 **4. Section structure** — propose 1-6 sections. Common patterns from the references:
 
@@ -159,13 +155,13 @@ For every visual element in the section plan, source it from the free libraries 
 | Noise / texture | Inline SVG with `feTurbulence` filter | Hero Patterns |
 | Fonts | Google Fonts | Fontsource (NPM) |
 
-**Validation step (critical)**: after picking a URL, fetch it with `web_fetch` (or a HEAD-like check). If the URL returns 404 or is not a direct file URL, search again. Never include unverified URLs in the spec — that's the #1 reason these pages break.
+**Validation step (critical)**: after picking a URL, fetch it with `WebFetch` (or a HEAD-like check). If the URL returns 404 or is not a direct file URL, search again. Never include unverified URLs in the spec — that's the #1 reason these pages break.
 
 **Example flow for the hero video:**
 1. The mood is "cinematic luxury for private jet brand"
-2. Search Pexels: `web_search` for `site:pexels.com private jet aerial video free download`
+2. Search Pexels: `WebSearch` for `site:pexels.com private jet aerial video free download`
 3. Find a result like `https://www.pexels.com/video/aerial-view-of-airplane-2330708/`
-4. Use `web_fetch` to load the page and extract the direct download URL (Pexels exposes a `https://videos.pexels.com/video-files/2330708/2330708-hd_1920_1080_30fps.mp4` pattern)
+4. Use `WebFetch` to load the page and extract the direct download URL (Pexels exposes a `https://videos.pexels.com/video-files/2330708/2330708-hd_1920_1080_30fps.mp4` pattern)
 5. Verify the .mp4 URL loads
 6. Note it in the spec
 
@@ -202,7 +198,7 @@ Read `references/spec-template.md` for the exact structure. The template has fil
 6. **Tailwind classes spelled out completely** — `text-6xl md:text-7xl lg:text-[5.5rem]` not "responsive large text".
 7. **Component contracts** — each reusable component shows props, behavior, animation params.
 
-After writing the spec, save it to `/mnt/user-data/outputs/<project-name>-spec.md` so the user can copy it elsewhere if they want.
+After writing the spec, save it in the current project directory as `<project-name>-spec.md` so the user can copy it elsewhere if they want.
 
 Show it to the user with a brief framing: "Here's the spec. If you want to feed this to Lovable/v0/Gemini yourself, copy that file. Otherwise I'll build it now."
 
@@ -214,18 +210,18 @@ Show it to the user with a brief framing: "Here's the spec. If you want to feed 
 
 **For CDN-only target (default):**
 
-1. Create a single `index.html` in `/mnt/user-data/outputs/` containing:
+1. Create a single `index.html` in the current project directory containing:
    - All Google Fonts links in `<head>`
    - All custom CSS in a `<style>` block
    - All React components as `<script type="text/babel">` blocks
    - The mount: `ReactDOM.createRoot(document.getElementById('root')).render(<App />)`
 2. The HTML must be self-contained — no build step needed.
 3. Test mentally: read through the file; every URL, every text, every animation parameter from the spec is present.
-4. Present with `present_files`.
+4. Escribe los archivos y reporta las rutas.
 
 **For Vite + TypeScript target:**
 
-1. Create the project layout in `/mnt/user-data/outputs/<project>/`:
+1. Create the project layout in `<project>/` inside the current project directory:
    ```
    src/
      components/
@@ -246,7 +242,7 @@ Show it to the user with a brief framing: "Here's the spec. If you want to feed 
    tsconfig.json
    ```
 2. Provide a README with `npm install && npm run dev` to launch.
-3. Present the folder (or the most important files) with `present_files`.
+3. Escribe los archivos y reporta las rutas (al menos las de los archivos más importantes).
 
 **Either way — render an Artifact preview** if the chat interface supports it (claude.ai does). This gives the user an immediate live view of the page.
 
