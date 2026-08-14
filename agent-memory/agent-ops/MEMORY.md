@@ -24,6 +24,12 @@
 
 ## Trampas pagadas
 
+- **El orden edit→capture→commit pisa ediciones del repo.** `sync-config.ps1 capture`
+  copia live→repo TAMBIÉN para CLAUDE.md/TEAM-TEMPLATES/settings: si editaste el repo y
+  corres capture antes de commitear, tu edición se revierte en silencio (pasó el
+  2026-08-13 con la nota de desinstalación de superpowers). Secuencia segura:
+  config → editar REPO → apply → commit; memoria → editar LIVE → capture → commit.
+  Nunca mezclar ambos en el mismo ciclo sin `git diff` antes del commit.
 - **Escribir memorias con `Out-File` de PowerShell corrompe los acentos** (trampa UTF-8
   de PowerShell 5.1). Usar siempre las herramientas Read/Write/Edit, o Node. Para copiar
   bloques verbatim de un archivo a otro, `sed -n 'X,Yp' src >> dst` desde el tool Bash
