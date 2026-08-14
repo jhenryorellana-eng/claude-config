@@ -205,8 +205,8 @@ emisores; ese trabajo viaja como tarea normal).
 - **Ops:** `postmortem`
 - **Flujo VPS:** `encolar-tarea` · `revisar-pr` (los 2 intocables)
 - **Plugins:** impeccable, playwright, context7, supabase, codex, kimi,
-  dataviz… (**superpowers se desinstala** tras validar la migración — sus 5
-  skills de proceso son ahora propias)
+  dataviz… (**superpowers DESINSTALADO** el 2026-08-13 — sus 5 skills de
+  proceso son ahora propias: brainstorm, write-plan, tdd, verify, investigate)
 
 ## MCPs
 
