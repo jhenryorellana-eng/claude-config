@@ -42,9 +42,7 @@
 
 ## Changelog del roster
 
-- **2026-08-13 — v3**: 13→18 agentes, skills 32→17 propias, superpowers en migración
-  (desinstalar tras validación), impeccable instalado. Deuda: F8 desinstalación
-  pendiente; validación e2e pendiente.
+- **2026-08-13 — v3**: 13→18 agentes, skills 32→17 propias, superpowers DESINSTALADO (2026-08-13, orden de Mauri; el VPS nunca lo tuvo), impeccable instalado. Deuda: validación e2e del pipeline v3 pendiente.
 - **2026-08-13 — curaduría inaugural de memorias**: se reubicó el conocimiento de
   frontend fuera de `code-reviewer` y el de esquema/RLS fuera de `backend-builder`
   (sembrando `db-architect`); se comprimieron a ≤200 líneas `code-reviewer`,
