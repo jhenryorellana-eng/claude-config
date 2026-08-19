@@ -4,9 +4,10 @@ description: >
   Ejecuta la revisión y el merge de un PR de x-legal siguiendo el gate completo
   de docs/plantillas/REVISION-PR.md. Usa cuando el usuario diga "revisa el PR
   N", "revisemos lo que hizo el asistente", "mergea el PR", o después de que la
-  cola del VPS abra un PR. ES EL GATE DE MAIN: no hay branch protection en este
-  plan de GitHub, así que esta skill se NIEGA a mergear con checks en rojo o
-  con migraciones sin aplicar a prod.
+  cola del VPS abra un PR. ES EL GATE DE MAIN, en doble barrera desde 2026-08-19:
+  GitHub bloquea el merge con checks en rojo (branch protection, 5 required
+  checks) y esta skill cubre lo que GitHub no puede ver — migraciones sin aplicar
+  a prod, revisión del diff, verificación en vivo. Se NIEGA a mergear igual.
 ---
 
 # Revisar y mergear un PR (el gate de `main`)
@@ -15,7 +16,14 @@ description: >
 
 1. **Checks verdes o no hay merge.** `gh pr checks <N>` con CUALQUIER check en
    rojo → se arregla en la rama o se re-encola la tarea. Jamás "mergeamos por
-   ahora". Acostumbrarse al rojo es cómo entra el PR roto de verdad.
+   ahora". Acostumbrarse al rojo es cómo entra el PR roto de verdad — y no es
+   hipotético: entre el 11 y el 19 de agosto de 2026 la cuota de Actions se
+   agotó, TODOS los checks quedaron en rojo permanente, y 38 PRs se mergearon
+   sin pgTAP porque el rojo había dejado de significar algo. Si ves rojo en
+   todo a la vez, sospecha de la cuota antes que del código: la firma es que
+   los jobs mueren en 1-2 s sin ejecutar un solo step.
+   ⚠ `DB types drift (hosted schema)` aparece como **`skipping`** en los PRs y
+   eso es correcto — es `push`-only. No lo confundas con un check caído.
 2. **Un merge a la vez.** Si hay varios PRs verdes, se procesan en serie y el
    siguiente se actualiza contra main (`gh pr update-branch`) antes de
    revisarlo — dos PRs verdes por separado pueden romper main juntos.
